@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AppLayout } from "../components/AppLayout";
+import { MockAuthGuard } from "../components/MockAuthGuard";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,9 +27,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body className="font-sans bg-zinc-100 dark:bg-zinc-950 text-zinc-950 dark:text-zinc-50 antialiased min-h-screen">
-        <AppLayout>
-          {children}
-        </AppLayout>
+        <MockAuthGuard>
+          <AppLayout>
+            {children}
+          </AppLayout>
+        </MockAuthGuard>
       </body>
     </html>
   );
