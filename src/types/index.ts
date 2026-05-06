@@ -35,9 +35,15 @@ export interface Goal {
   deadline?: string;
 }
 
+export interface Preferences {
+  currency: string;
+  emailNotifications: boolean;
+}
+
 export interface FinanceState {
   transactions: Transaction[];
   categories: Category[];
   budget: Budget;
   goals: Goal[];
+  preferences: Preferences;
 }

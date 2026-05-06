@@ -72,7 +72,7 @@ export function GoalFormModal({ isOpen, onClose, onSave, editingGoal }: GoalForm
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm animate-in fade-in duration-200"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-xs animate-in fade-in duration-200"
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) {
           onClose();

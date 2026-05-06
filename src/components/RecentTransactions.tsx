@@ -7,7 +7,7 @@ import { Badge } from "../components/ui/Badge";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 
 export function RecentTransactions() {
-  const { transactions, categories, isHydrated } = useFinance();
+  const { transactions, categories, isHydrated, preferences } = useFinance();
 
   if (!isHydrated) return <Card className="h-64 animate-pulse"><CardContent className="pt-6">Loading...</CardContent></Card>;
 
@@ -47,7 +47,7 @@ export function RecentTransactions() {
                       </Badge>
                     )}
                     <div className={`font-semibold ${isIncome ? 'text-green-600 dark:text-green-500' : ''}`}>
-                      {isIncome ? '+' : '-'}{formatCurrency(tx.amount)}
+                      {isIncome ? '+' : '-'}{formatCurrency(tx.amount, preferences.currency)}
                     </div>
                   </div>
                 </div>

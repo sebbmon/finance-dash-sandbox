@@ -12,7 +12,7 @@ import { Trash2, Edit2, X, Check } from "lucide-react";
 import { Transaction } from "../types";
 
 export function TransactionsTable() {
-  const { transactions, categories, deleteTransaction, editTransaction, isHydrated } = useFinance();
+  const { transactions, categories, deleteTransaction, editTransaction, isHydrated, preferences } = useFinance();
   
   // Filters state
   const [filterType, setFilterType] = useState<string>('all');
@@ -160,7 +160,7 @@ export function TransactionsTable() {
                         ) : '-'}
                       </td>
                       <td className={`px-4 h-16 align-middle text-right font-semibold whitespace-nowrap ${isIncome ? 'text-green-600 dark:text-green-500' : ''}`}>
-                        {isIncome ? '+' : '-'}{formatCurrency(tx.amount)}
+                        {isIncome ? '+' : '-'}{formatCurrency(tx.amount, preferences.currency)}
                       </td>
                       <td className="px-4 h-16 align-middle text-right whitespace-nowrap space-x-1">
                         <Button 

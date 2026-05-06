@@ -9,7 +9,7 @@ import { Input } from "./ui/Input";
 import { AlertTriangle, CheckCircle } from "lucide-react";
 
 export function BudgetSettings() {
-  const { budget, updateBudget, totalExpense, isHydrated } = useFinance();
+  const { budget, updateBudget, totalExpense, isHydrated, preferences } = useFinance();
   const [newLimit, setNewLimit] = useState(budget.monthlyLimit.toString());
   const [isSaved, setIsSaved] = useState(false);
 
@@ -46,7 +46,7 @@ export function BudgetSettings() {
           <div className="flex justify-between items-center mb-2">
             <span className="text-sm font-medium">Budget Usage</span>
             <span className="text-sm text-zinc-500 font-medium">
-              {formatCurrency(totalExpense)} / {formatCurrency(budget.monthlyLimit)}
+              {formatCurrency(totalExpense, preferences.currency)} / {formatCurrency(budget.monthlyLimit, preferences.currency)}
             </span>
           </div>
 
@@ -73,7 +73,7 @@ export function BudgetSettings() {
 
         <form onSubmit={handleSave} className="space-y-4 pt-4 border-t border-zinc-200 dark:border-zinc-800">
           <div className="space-y-2">
-            <label className="text-sm font-medium">Monthly Limit (PLN)</label>
+            <label className="text-sm font-medium">Monthly Limit ({preferences.currency})</label>
             <div className="flex space-x-2">
               <Input
                 type="number"

@@ -10,7 +10,7 @@ import { Plus, Edit2, Trash2, Target, Calendar, TrendingUp } from "lucide-react"
 import { Goal } from "../types";
 
 export function Goals() {
-  const { goals, addGoal, editGoal, deleteGoal, isHydrated } = useFinance();
+  const { goals, addGoal, editGoal, deleteGoal, isHydrated, preferences } = useFinance();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingGoal, setEditingGoal] = useState<Goal | undefined>();
 
@@ -103,10 +103,10 @@ export function Goals() {
                   <div className="space-y-3">
                     <div className="flex justify-between items-end">
                       <div className="text-2xl font-bold tracking-tight">
-                        {formatCurrency(goal.savedAmount)}
+                        {formatCurrency(goal.savedAmount, preferences.currency)}
                       </div>
                       <div className="text-sm font-medium text-zinc-500">
-                        / {formatCurrency(goal.targetAmount)}
+                        / {formatCurrency(goal.targetAmount, preferences.currency)}
                       </div>
                     </div>
 
@@ -120,7 +120,7 @@ export function Goals() {
                     <div className="flex justify-between items-center text-xs font-semibold uppercase tracking-wider text-zinc-500">
                       <span>{percentage.toFixed(0)}% Completed</span>
                       {remainingAmt > 0 ? (
-                        <span className="flex items-center text-zinc-400"><TrendingUp className="w-3 h-3 mr-1" /> {formatCurrency(remainingAmt)} Left</span>
+                        <span className="flex items-center text-zinc-400"><TrendingUp className="w-3 h-3 mr-1" /> {formatCurrency(remainingAmt, preferences.currency)} Left</span>
                       ) : (
                         <span className="text-green-500">Goal Reached!</span>
                       )}
