@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 export const routeDescriptions: Record<string, string> = {
   "/": "Overview of your finances",
   "/transactions": "Manage your income and expenses",
+  "/goals": "Set and track your financial goals",
   "/profile": "Manage your profile",
   "/settings": "Manage your preferences",
 };

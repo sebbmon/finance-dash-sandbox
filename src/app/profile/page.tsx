@@ -30,6 +30,33 @@ export default function ProfilePage() {
             </div>
           </CardContent>
         </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Change password</CardTitle>
+            <CardDescription>Use a strong password you don't use anywhere else</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-4 max-w-md">
+              <div className="space-y-2">
+                <label className="text-sm font-medium leading-none">Current password</label>
+                <Input type="password" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium leading-none">New password</label>
+                <Input type="password" />
+                <p className="text-[0.8rem] text-zinc-500 dark:text-zinc-400">At least 8 characters</p>
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium leading-none">Confirm new password</label>
+                <Input type="password" />
+              </div>
+            </div>
+            <div className="mt-4">
+              <Button>Update password</Button>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
