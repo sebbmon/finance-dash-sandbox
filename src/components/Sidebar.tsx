@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, WalletCards, Settings, Wallet, Goal } from 'lucide-react';
+import { LayoutDashboard, WalletCards, Settings, Wallet, Goal, User } from 'lucide-react';
 import { cn } from '../utils/utils';
 
 export function Sidebar({ onClose, isMobile }: { onClose?: () => void, isMobile?: boolean }) {
@@ -12,6 +12,7 @@ export function Sidebar({ onClose, isMobile }: { onClose?: () => void, isMobile?
     { name: 'Dashboard', href: '/', icon: LayoutDashboard },
     { name: 'Transactions', href: '/transactions', icon: WalletCards },
     { name: 'Goals', href: '/goals', icon: Goal },
+    { name: 'Profile', href: '/profile', icon: User },
     { name: 'Settings', href: '/settings', icon: Settings },
   ];
 

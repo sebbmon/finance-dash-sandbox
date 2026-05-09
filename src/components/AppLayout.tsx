@@ -22,8 +22,8 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         {/* Mobile Dropdown Menu */}
         <div
           className={`md:hidden absolute top-14 left-0 w-full z-40 border-b border-zinc-200 dark:border-zinc-800 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md shadow-lg transition-all duration-200 origin-top ${isSidebarOpen
-              ? "opacity-100 translate-y-0 visible pointer-events-auto"
-              : "opacity-0 -translate-y-2 invisible pointer-events-none"
+            ? "opacity-100 translate-y-0 visible pointer-events-auto"
+            : "opacity-0 -translate-y-2 invisible pointer-events-none"
             }`}
         >
           <Sidebar onClose={() => setIsSidebarOpen(false)} isMobile />
