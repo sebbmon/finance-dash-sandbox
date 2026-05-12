@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useFinance } from "../hooks/useFinance";
 import { formatCurrency } from "../utils/formatCurrency";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/Card";
@@ -27,7 +27,9 @@ export function TransactionsTable() {
   // Sort state
   const [sortDirection, setSortDirection] = useState<'desc' | 'asc'>('desc');
   
-  if (!isHydrated) return <Card className="animate-pulse h-[400px]"><CardContent /></Card>;
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 15;
 
   // Apply filters and sorting
   const filteredTransactions = useMemo(() => {
@@ -44,6 +46,19 @@ export function TransactionsTable() {
     }
     return [...filtered].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   }, [transactions, filterType, filterCategory, filterStartDate, filterEndDate, sortDirection]);
+
+  // Reset page to 1 when filters or sort change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filterType, filterCategory, filterStartDate, filterEndDate, sortDirection]);
+
+  if (!isHydrated) return <Card className="animate-pulse h-[400px]"><CardContent /></Card>;
+
+  const totalPages = Math.ceil(filteredTransactions.length / ITEMS_PER_PAGE);
+  const paginatedTransactions = filteredTransactions.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
 
   const toggleSort = () => {
     setSortDirection(prev => prev === 'desc' ? 'asc' : 'desc');
@@ -136,12 +151,12 @@ export function TransactionsTable() {
               </tr>
             </thead>
             <tbody>
-              {filteredTransactions.length === 0 ? (
+              {paginatedTransactions.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="p-4 text-center text-zinc-500 text-sm">No transactions found matching your filters.</td>
                 </tr>
               ) : (
-                filteredTransactions.map((tx) => {
+                paginatedTransactions.map((tx) => {
                   const category = categories.find(c => c.id === tx.categoryId);
                   const isIncome = tx.type === 'income';
                   
@@ -211,6 +226,35 @@ export function TransactionsTable() {
             </tbody>
           </table>
         </div>
+        
+        {totalPages > 1 && (
+          <div className="flex flex-col sm:flex-row items-center justify-between pt-4 mt-4 border-t border-zinc-200 dark:border-zinc-800 gap-4">
+            <div className="text-sm text-zinc-500">
+              Showing {(currentPage - 1) * ITEMS_PER_PAGE + 1} to {Math.min(currentPage * ITEMS_PER_PAGE, filteredTransactions.length)} of {filteredTransactions.length} transactions
+            </div>
+            <div className="flex items-center gap-4">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+              >
+                Previous
+              </Button>
+              <div className="text-sm font-medium">
+                Page {currentPage} of {totalPages}
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+              >
+                Next
+              </Button>
+            </div>
+          </div>
+        )}
       </CardContent>
     </Card>
   );
