@@ -21,7 +21,7 @@ export function Switch({ className, checked, onCheckedChange, disabled, ...props
         checked ? "bg-zinc-900 dark:bg-zinc-50" : "bg-zinc-200 dark:bg-zinc-800",
         className
       )}
-      {...props as any}
+      {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
     >
       <span
         data-state={checked ? "checked" : "unchecked"}

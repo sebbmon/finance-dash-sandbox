@@ -252,7 +252,7 @@ export function MockAuthGuard({ children }: { children: React.ReactNode }) {
           <div className="mt-6 text-center">
             {view === "login" ? (
               <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                Don't have an account?{" "}
+                Don&apos;t have an account?{" "}
                 <button
                   onClick={() => switchView("register")}
                   className="font-medium text-zinc-900 dark:text-zinc-50 hover:underline"

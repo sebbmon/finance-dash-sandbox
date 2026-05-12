@@ -1,0 +1,84 @@
+
+> dashboard@0.1.0 lint
+> eslint
+
+
+C:\Users\sebek\Desktop\dashboard\dashboard\src\app\profile\page.tsx
+  37:59  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Users\sebek\Desktop\dashboard\dashboard\src\components\BudgetSettings.tsx
+  18:7  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\sebek\Desktop\dashboard\dashboard\src\components\BudgetSettings.tsx:18:7
+  16 |   useEffect(() => {
+  17 |     if (isHydrated) {
+> 18 |       setNewLimit(budget.monthlyLimit.toString());
+     |       ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  19 |     }
+  20 |   }, [budget.monthlyLimit, isHydrated]);
+  21 |  react-hooks/set-state-in-effect
+
+C:\Users\sebek\Desktop\dashboard\dashboard\src\components\CategoryPieChart.tsx
+  60:38  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  60:49  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\sebek\Desktop\dashboard\dashboard\src\components\GoalFormModal.tsx
+   8:10  warning  'cn' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       @typescript-eslint/no-unused-vars
+  26:7   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\sebek\Desktop\dashboard\dashboard\src\components\GoalFormModal.tsx:26:7
+  24 |   useEffect(() => {
+  25 |     if (editingGoal && isOpen) {
+> 26 |       setTitle(editingGoal.title);
+     |       ^^^^^^^^ Avoid calling setState() directly within an effect
+  27 |       setTargetAmount(editingGoal.targetAmount.toString());
+  28 |       setSavedAmount(editingGoal.savedAmount.toString());
+  29 |       setDeadline(editingGoal.deadline || '');  react-hooks/set-state-in-effect
+
+C:\Users\sebek\Desktop\dashboard\dashboard\src\components\MockAuthGuard.tsx
+  255:20  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Users\sebek\Desktop\dashboard\dashboard\src\components\SavingsTrendChart.tsx
+  101:38  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\sebek\Desktop\dashboard\dashboard\src\components\TransactionForm.tsx
+  9:10  warning  'Transaction' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\sebek\Desktop\dashboard\dashboard\src\components\ui\Input.tsx
+  4:18  error  An interface declaring no members is equivalent to its supertype  @typescript-eslint/no-empty-object-type
+
+C:\Users\sebek\Desktop\dashboard\dashboard\src\components\ui\Switch.tsx
+  24:20  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\sebek\Desktop\dashboard\dashboard\src\hooks\useLocalStorage.ts
+  15:9  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\sebek\Desktop\dashboard\dashboard\src\hooks\useLocalStorage.ts:15:9
+  13 |       // parse stored json or if none return initialValue
+  14 |       if (item) {
+> 15 |         setStoredValue(JSON.parse(item));
+     |         ^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  16 |       }
+  17 |       setIsHydrated(true);
+  18 |     } catch (error) {  react-hooks/set-state-in-effect
+
+✖ 12 problems (10 errors, 2 warnings)
+

@@ -15,6 +15,7 @@ export function BudgetSettings() {
 
   useEffect(() => {
     if (isHydrated) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setNewLimit(budget.monthlyLimit.toString());
     }
   }, [budget.monthlyLimit, isHydrated]);

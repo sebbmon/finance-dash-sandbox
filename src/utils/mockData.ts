@@ -9,56 +9,88 @@ export const defaultCategories: Category[] = [
   { id: 'cat-6', name: 'Other', type: 'expense', color: '#6b7280' }, // gray-500
 ];
 
-export const mockTransactions: Transaction[] = [
-  {
-    id: 'tx-1',
-    amount: 5000,
+const getPastDate = (monthsAgo: number, day: number) => {
+  const d = new Date();
+  d.setMonth(d.getMonth() - monthsAgo);
+  d.setDate(day);
+  return d.toISOString().split('T')[0];
+};
+
+export const mockTransactions: Transaction[] = [];
+
+for (let i = 11; i >= 0; i--) {
+  // Monthly salary
+  mockTransactions.push({
+    id: `tx-salary-${i}`,
+    amount: 5000 + Math.floor(Math.random() * 500),
     type: 'income',
     categoryId: 'cat-5',
-    date: new Date(new Date().setDate(2)).toISOString().split('T')[0],
+    date: getPastDate(i, 2),
     note: 'Monthly salary',
-  },
-  {
-    id: 'tx-2',
-    amount: 120,
+  });
+
+  // Groceries
+  mockTransactions.push({
+    id: `tx-food1-${i}`,
+    amount: 400 + Math.floor(Math.random() * 200),
     type: 'expense',
     categoryId: 'cat-1',
-    date: new Date(new Date().setDate(5)).toISOString().split('T')[0],
+    date: getPastDate(i, 5),
     note: 'Groceries',
-  },
-  {
-    id: 'tx-3',
-    amount: 50,
+  });
+
+  // Transport
+  mockTransactions.push({
+    id: `tx-transport-${i}`,
+    amount: 150 + Math.floor(Math.random() * 50),
     type: 'expense',
     categoryId: 'cat-2',
-    date: new Date(new Date().setDate(8)).toISOString().split('T')[0],
+    date: getPastDate(i, 8),
     note: 'Gas',
-  },
-  {
-    id: 'tx-4',
-    amount: 400,
+  });
+
+  // Bills
+  mockTransactions.push({
+    id: `tx-bills-${i}`,
+    amount: 600 + Math.floor(Math.random() * 100),
     type: 'expense',
     categoryId: 'cat-3',
-    date: new Date(new Date().setDate(10)).toISOString().split('T')[0],
-    note: 'Electricity and Water',
-  },
-  {
-    id: 'tx-5',
-    amount: 150,
+    date: getPastDate(i, 10),
+    note: 'Electricity & Utilities',
+  });
+
+  // Entertainment
+  mockTransactions.push({
+    id: `tx-ent-${i}`,
+    amount: 200 + Math.floor(Math.random() * 200),
     type: 'expense',
     categoryId: 'cat-4',
-    date: new Date(new Date().setDate(12)).toISOString().split('T')[0],
-    note: 'Cinema',
-  },
-  {
-    id: 'tx-6',
-    amount: 80,
+    date: getPastDate(i, 15),
+    note: 'Cinema & Dining out',
+  });
+
+  // Additional Groceries later in the month
+  mockTransactions.push({
+    id: `tx-food2-${i}`,
+    amount: 300 + Math.floor(Math.random() * 150),
     type: 'expense',
     categoryId: 'cat-1',
-    date: new Date(new Date().setDate(15)).toISOString().split('T')[0],
-    note: 'Dinner out',
-  },
-];
+    date: getPastDate(i, 20),
+    note: 'Supermarket',
+  });
+
+  // Random occasional expense
+  if (Math.random() > 0.4) {
+    mockTransactions.push({
+      id: `tx-other-${i}`,
+      amount: 150 + Math.floor(Math.random() * 300),
+      type: 'expense',
+      categoryId: 'cat-6',
+      date: getPastDate(i, 25),
+      note: 'Shopping / Other',
+    });
+  }
+}
 
 export const defaultGoals: Goal[] = [
   {

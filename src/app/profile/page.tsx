@@ -34,7 +34,7 @@ export default function ProfilePage() {
         <Card>
           <CardHeader>
             <CardTitle>Change password</CardTitle>
-            <CardDescription>Use a strong password you don't use anywhere else</CardDescription>
+            <CardDescription>Use a strong password you don&apos;t use anywhere else</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 max-w-md">
