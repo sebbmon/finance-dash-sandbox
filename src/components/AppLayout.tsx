@@ -11,7 +11,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     <div className="flex relative bg-zinc-100 dark:bg-zinc-950 min-h-screen">
 
       {/* Desktop Sidebar */}
-      <div className="hidden md:block fixed inset-y-0 left-0 z-50 md:relative">
+      <div className="hidden md:block sticky top-0 h-screen z-50">
         <Sidebar onClose={() => setIsSidebarOpen(false)} />
       </div>
 
