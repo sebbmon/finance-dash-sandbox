@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useFinance } from "../hooks/useFinance";
 import { formatCurrency } from "../utils/formatCurrency";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/Card";
@@ -8,7 +8,7 @@ import { Button } from "./ui/Button";
 import { Badge } from "./ui/Badge";
 import { Input } from "./ui/Input";
 import { Select } from "./ui/Select";
-import { Trash2, Edit2, X, Check } from "lucide-react";
+import { Trash2, Edit2, X, Check, ArrowDown, ArrowUp } from "lucide-react";
 import { Transaction } from "../types";
 
 export function TransactionsTable() {
@@ -24,16 +24,30 @@ export function TransactionsTable() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editForm, setEditForm] = useState<Partial<Transaction>>({});
   
+  // Sort state
+  const [sortDirection, setSortDirection] = useState<'desc' | 'asc'>('desc');
+  
   if (!isHydrated) return <Card className="animate-pulse h-[400px]"><CardContent /></Card>;
 
-  // Apply filters
-  const filteredTransactions = transactions.filter(t => {
-    if (filterType !== 'all' && t.type !== filterType) return false;
-    if (filterCategory !== 'all' && t.categoryId !== filterCategory) return false;
-    if (filterStartDate && new Date(t.date) < new Date(filterStartDate)) return false;
-    if (filterEndDate && new Date(t.date) > new Date(filterEndDate)) return false;
-    return true;
-  });
+  // Apply filters and sorting
+  const filteredTransactions = useMemo(() => {
+    const filtered = transactions.filter(t => {
+      if (filterType !== 'all' && t.type !== filterType) return false;
+      if (filterCategory !== 'all' && t.categoryId !== filterCategory) return false;
+      if (filterStartDate && new Date(t.date) < new Date(filterStartDate)) return false;
+      if (filterEndDate && new Date(t.date) > new Date(filterEndDate)) return false;
+      return true;
+    });
+
+    if (sortDirection === 'asc') {
+      return [...filtered].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    }
+    return [...filtered].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  }, [transactions, filterType, filterCategory, filterStartDate, filterEndDate, sortDirection]);
+
+  const toggleSort = () => {
+    setSortDirection(prev => prev === 'desc' ? 'asc' : 'desc');
+  };
 
   const handleEditClick = (tx: Transaction) => {
     setEditingId(tx.id);
@@ -106,7 +120,15 @@ export function TransactionsTable() {
           <table className="w-full text-sm min-w-[600px]">
             <thead>
               <tr className="border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50">
-                <th className="h-10 px-4 text-left align-middle font-medium text-zinc-500">Date</th>
+                <th 
+                  className="h-10 px-4 text-left align-middle font-medium text-zinc-500 cursor-pointer hover:text-zinc-900 dark:hover:text-zinc-100 select-none group"
+                  onClick={toggleSort}
+                >
+                  <div className="flex items-center gap-1">
+                    Date
+                    {sortDirection === 'desc' ? <ArrowDown className="h-3 w-3" /> : <ArrowUp className="h-3 w-3" />}
+                  </div>
+                </th>
                 <th className="h-10 px-4 text-left align-middle font-medium text-zinc-500">Note</th>
                 <th className="h-10 px-4 text-left align-middle font-medium text-zinc-500">Category</th>
                 <th className="h-10 px-4 text-right align-middle font-medium text-zinc-500">Amount</th>
