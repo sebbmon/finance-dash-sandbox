@@ -34,6 +34,10 @@ export function useFinance() {
     defaultPreferences
   );
 
+  const sortedTransactions = useMemo(() => {
+    return [...transactions].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  }, [transactions]);
+
   // computations
 
   const currentMonthTransactions = useMemo(() => {
@@ -41,11 +45,11 @@ export function useFinance() {
     const currentMonth = now.getMonth();
     const currentYear = now.getFullYear();
 
-    return transactions.filter(t => {
+    return sortedTransactions.filter(t => {
       const d = new Date(t.date);
       return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
     });
-  }, [transactions]);
+  }, [sortedTransactions]);
 
   const totalIncome = useMemo(() => {
     return currentMonthTransactions
@@ -115,7 +119,7 @@ export function useFinance() {
   // filtering
 
   const getFilteredTransactions = (options: FilterOptions) => {
-    return transactions.filter(t => {
+    return sortedTransactions.filter(t => {
       let matches = true;
       if (options.type && t.type !== options.type) matches = false;
       if (options.categoryId && t.categoryId !== options.categoryId) matches = false;
@@ -126,7 +130,7 @@ export function useFinance() {
   };
 
   return {
-    transactions,
+    transactions: sortedTransactions,
     categories,
     budget,
     goals,
