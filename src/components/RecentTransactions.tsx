@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useFinance } from "../hooks/useFinance";
 import { formatCurrency } from "../utils/formatCurrency";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/Card";
@@ -15,8 +16,11 @@ export function RecentTransactions() {
 
   return (
     <Card className="col-span-full lg:col-span-4">
-      <CardHeader>
+      <CardHeader className="flex flex-row items-center justify-between pb-4 space-y-0">
         <CardTitle>Recent Transactions</CardTitle>
+        <Link href="/transactions" className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">
+          View all
+        </Link>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">

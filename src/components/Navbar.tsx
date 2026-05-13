@@ -36,6 +36,8 @@ export function Navbar({ onMenuToggle }: { onMenuToggle?: () => void }) {
   const getPageTitle = () => {
     switch (pathname) {
       case '/transactions': return 'Transactions';
+      case '/goals': return 'Goals';
+      case '/profile': return 'Profile';
       case '/settings': return 'Settings';
       default: return 'Dashboard';
     }

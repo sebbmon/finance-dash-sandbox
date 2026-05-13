@@ -10,15 +10,16 @@ export const routeDescriptions: Record<string, string> = {
   "/settings": "Manage your preferences",
 };
 
-export function PageDescription() {
+export function PageDescription({ children }: { children?: React.ReactNode }) {
   const pathname = usePathname();
   const description = routeDescriptions[pathname];
 
   if (!description) return null;
 
   return (
-    <div className="flex items-center justify-between space-y-2 pb-2">
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2">
       <h2 className="text-2xl font-bold tracking-tight">{description}</h2>
+      {children && <div>{children}</div>}
     </div>
   );
 }
