@@ -13,9 +13,15 @@ export default function Home() {
 
       <SavingsTrendChart />
       
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-        <CategoryPieChart />
-        <RecentTransactions />
+      <div className="grid gap-4 lg:grid-cols-10">
+        <CategoryPieChart className="lg:col-span-3" />
+        <CategoryPieChart
+          type="income"
+          title="Incomes by Category"
+          emptyMessage="No incomes found."
+          className="lg:col-span-3"
+        />
+        <RecentTransactions className="lg:col-span-4" />
       </div>
     </div>
   );

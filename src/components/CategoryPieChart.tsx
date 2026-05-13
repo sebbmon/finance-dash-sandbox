@@ -4,15 +4,29 @@ import { useMemo } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { useFinance } from '../hooks/useFinance';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
+import type { TransactionType } from '../types';
+import { formatCurrency } from '../utils/formatCurrency';
+import { cn } from '../utils/utils';
 
-export function CategoryPieChart() {
-  const { transactions, categories, isHydrated } = useFinance();
+type CategoryPieChartProps = {
+  type?: TransactionType;
+  title?: string;
+  emptyMessage?: string;
+  className?: string;
+};
+
+export function CategoryPieChart({
+  type = 'expense',
+  title = 'Expenses by Category',
+  emptyMessage = 'No expenses found.',
+  className,
+}: CategoryPieChartProps) {
+  const { transactions, categories, isHydrated, preferences } = useFinance();
 
   const data = useMemo(() => {
-    const expenses = transactions.filter(t => t.type === 'expense');
+    const filteredTransactions = transactions.filter(t => t.type === type);
 
-    // grupby category
-    const grouped = expenses.reduce((acc, tx) => {
+    const grouped = filteredTransactions.reduce((acc, tx) => {
       acc[tx.categoryId] = (acc[tx.categoryId] || 0) + tx.amount;
       return acc;
     }, {} as Record<string, number>);
@@ -24,20 +38,20 @@ export function CategoryPieChart() {
         value,
         color: category?.color || '#cbd5e1'
       };
-    }).sort((a, b) => b.value - a.value); // sortby largest expense
-  }, [transactions, categories]);
+    }).sort((a, b) => b.value - a.value);
+  }, [transactions, categories, type]);
 
-  if (!isHydrated) return <Card className="col-span-full lg:col-span-3 h-64 animate-pulse"><CardContent /></Card>;
+  if (!isHydrated) return <Card className={cn("h-64 animate-pulse", className)}><CardContent /></Card>;
 
   return (
-    <Card className="col-span-full lg:col-span-3">
+    <Card className={className}>
       <CardHeader>
-        <CardTitle>Expenses by Category</CardTitle>
+        <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent>
         {data.length === 0 ? (
           <div className="flex h-[250px] items-center justify-center text-sm text-zinc-500">
-            No expenses found.
+            {emptyMessage}
           </div>
         ) : (
           <div className="h-[327px] w-full">
@@ -57,7 +71,7 @@ export function CategoryPieChart() {
                   ))}
                 </Pie>
                 <Tooltip
-                  formatter={(value: number, name: string) => [`${Number(value).toFixed(2)} PLN`, name]}
+                  formatter={(value, name) => [formatCurrency(Number(value ?? 0), preferences.currency), String(name)]}
                   contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                 />
                 <Legend verticalAlign="bottom" height={36} />

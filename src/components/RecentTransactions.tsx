@@ -6,16 +6,17 @@ import { formatCurrency } from "../utils/formatCurrency";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/Card";
 import { Badge } from "../components/ui/Badge";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
+import { cn } from "../utils/utils";
 
-export function RecentTransactions() {
+export function RecentTransactions({ className }: { className?: string }) {
   const { transactions, categories, isHydrated, preferences } = useFinance();
 
-  if (!isHydrated) return <Card className="h-64 animate-pulse"><CardContent className="pt-6">Loading...</CardContent></Card>;
+  if (!isHydrated) return <Card className={cn("h-64 animate-pulse", className)}><CardContent className="pt-6">Loading...</CardContent></Card>;
 
   const recent = transactions.slice(0, 6);
 
   return (
-    <Card className="col-span-full lg:col-span-4">
+    <Card className={className}>
       <CardHeader className="flex flex-row items-center justify-between pb-4 space-y-0">
         <CardTitle>Recent Transactions</CardTitle>
         <Link href="/transactions" className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">
