@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, WalletCards, Settings, Wallet, Goal, User } from 'lucide-react';
+import { LayoutDashboard, WalletCards, Settings, Wallet, Goal, User, LogOut } from 'lucide-react';
 import { cn } from '../utils/utils';
 
 export function Sidebar({ onClose, isMobile }: { onClose?: () => void, isMobile?: boolean }) {
@@ -54,6 +54,30 @@ export function Sidebar({ onClose, isMobile }: { onClose?: () => void, isMobile?
             );
           })}
         </ul>
+      </div>
+
+      <div className={cn(
+        "mt-auto border-t border-zinc-200 dark:border-zinc-800",
+        isMobile ? "px-3 py-3" : "p-3"
+      )}>
+        <div className="flex items-center gap-3 rounded-lg p-2 text-zinc-900 dark:text-zinc-50">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-semibold text-blue-700 dark:bg-blue-950 dark:text-blue-300">
+            JK
+          </div>
+          <span className="min-w-0 flex-1 truncate font-medium">Jan Kowalski</span>
+          <button
+            type="button"
+            aria-label="Wyloguj Jan Kowalski"
+            title="Wyloguj"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-zinc-500 transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-white"
+            onClick={() => {
+              onClose?.();
+              window.location.href = "/";
+            }}
+          >
+            <LogOut className="h-4 w-4" />
+          </button>
+        </div>
       </div>
     </aside>
   );
