@@ -99,5 +99,26 @@ export const defaultGoals: Goal[] = [
     targetAmount: 10000,
     savedAmount: 4500,
     deadline: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0]
-  }
+  },
+  {
+    id: 'goal-2',
+    title: 'BMW M5',
+    targetAmount: 600000,
+    savedAmount: 90000,
+    deadline: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0]
+  },
+  {
+    id: 'goal-3',
+    title: 'Apartment',
+    targetAmount: 1000000,
+    savedAmount: 790000,
+    deadline: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0]
+  },
+  {
+    id: 'goal-4',
+    title: 'Computer',
+    targetAmount: 10000,
+    savedAmount: 9800,
+    deadline: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0]
+  },
 ];
