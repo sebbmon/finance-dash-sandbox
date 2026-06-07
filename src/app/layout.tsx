@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Script from "next/script";
 import "./globals.css";
 import { AppLayout } from "../components/AppLayout";
 import { AuthGate } from "../components/AuthGate";
@@ -35,6 +36,11 @@ export default function RootLayout({
             </AppLayout>
           </AuthGate>
         </AuthProvider>
+        <Script
+          id="contentsquare-uxa"
+          src="https://t.contentsquare.net/uxa/2ec012c90a131.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
