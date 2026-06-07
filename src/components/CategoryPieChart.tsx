@@ -127,7 +127,9 @@ export function CategoryPieChart({
                   </Pie>
                   <Tooltip
                     allowEscapeViewBox={{ x: true, y: true }}
-                    content={<CategoryTooltip currency={preferences.currency} />}
+                    content={(props) => (
+                      <CategoryTooltip {...props} currency={preferences.currency} />
+                    )}
                     wrapperStyle={{ zIndex: 60, outline: 'none' }}
                   />
                 </PieChart>

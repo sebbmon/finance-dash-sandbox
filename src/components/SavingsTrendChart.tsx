@@ -98,8 +98,8 @@ export function SavingsTrendChart() {
                   dx={-10}
                 />
                 <Tooltip
-                  formatter={(value: number) => [
-                    `${Number(value).toFixed(2)} ${preferences.currency}`,
+                  formatter={(value) => [
+                    `${Number(value ?? 0).toFixed(2)} ${preferences.currency}`,
                     viewType === "cumulative" ? "Cumulative Balance" : "Monthly Net",
                   ]}
                   contentStyle={{
